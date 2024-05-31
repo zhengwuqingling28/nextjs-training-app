@@ -5,14 +5,11 @@ import { useCustomActionState } from "@/lib/custom";
 import Link from "next/link";
 
 interface FormState {
-  errors: {
-    email: string;
-    password: string;
-  };
+  errors: string[];
 }
 
 const AuthForm: React.FC = () => {
-  const initialState: FormState = { errors: { email: "", password: "" } };
+  const initialState: FormState = { errors: [] };
   const [formState, formAction] = useCustomActionState<FormState>(
     signup,
     initialState
@@ -36,14 +33,11 @@ const AuthForm: React.FC = () => {
         <label htmlFor="password">Password</label>
         <input type="password" name="password" id="password" />
       </p>
-      {formState.errors && (
+      {formState.errors.length > 0 && (
         <ul id="form-errors">
-          {Object.entries(formState.errors).map(([key, value]) => {
-            if (typeof value === "string" && value) {
-              return <li key={key}>{value}</li>;
-            }
-            return null;
-          })}
+          {formState.errors.map((error, index) => (
+            <li key={index}>{error}</li>
+          ))}
         </ul>
       )}
       <p>

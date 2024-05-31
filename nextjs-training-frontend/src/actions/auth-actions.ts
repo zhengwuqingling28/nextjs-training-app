@@ -4,10 +4,7 @@ import { hashUserPassword } from "@/lib/hash";
 import { redirect } from "next/navigation";
 
 interface FormState {
-  errors: {
-    email: string;
-    password: string;
-  };
+  errors: string[];
 }
 
 interface AuthFormData {
@@ -28,22 +25,22 @@ export const signup = async (prevState: FormState, formData: FormData) => {
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
 
-  let errors: { email: string; password: string } = { email: "", password: "" };
+  let errors: string[] = [];
 
   if (!email.includes("@")) {
-    errors.email = "Please enter a valid email address.";
+    errors.push("Please enter a valid email address.");
   }
 
   if (password.trim().length < 8) {
-    errors.password = "Password must be at least 8 characters long.";
+    errors.push("Password must be at least 8 characters long.");
   }
 
   const isUserExist = await checkUserExists(email);
   if (isUserExist) {
-    errors.email = "It's seem like an account already exist";
+    errors.push("It's seem like an account already exist.");
   }
 
-  if (errors.email || errors.password) {
+  if (errors.length > 0) {
     return { errors };
   }
 
