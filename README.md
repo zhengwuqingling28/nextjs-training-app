@@ -1,7 +1,8 @@
 # Nextjs Training App
 
-This is my excercise to learn nextjs
-Using Nextjs, Typescript json-server
+This is my excercise to learn [Nextjs](https://nextjs.org/docs).
+
+Using Nextjs 14, Server Action, Typescript, json-server.
 
 ## 🚀 Quick start
 
