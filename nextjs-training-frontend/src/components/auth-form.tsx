@@ -13,7 +13,10 @@ interface FormState {
 
 const AuthForm: React.FC = () => {
   const initialState: FormState = { errors: { email: "", password: "" } };
-  const [formState, formAction] = useCustomActionState(signup, initialState);
+  const [formState, formAction] = useCustomActionState<FormState>(
+    signup,
+    initialState
+  );
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
